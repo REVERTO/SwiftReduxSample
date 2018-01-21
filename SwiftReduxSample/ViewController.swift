@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var countLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +22,16 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+
+    @IBAction func increment() {
+        let num = Int(countLabel.text ?? "") ?? 0
+        countLabel.text = String(num + 1)
+    }
+    
+    @IBAction func decrement() {
+        let num = Int(countLabel.text ?? "") ?? 0
+        countLabel.text = String(num - 1)
+    }
 
 }
 
