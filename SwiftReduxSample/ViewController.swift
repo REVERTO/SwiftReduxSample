@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReSwift
 
 class ViewController: UIViewController {
 
@@ -15,6 +16,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        store.subscribe(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,14 +26,25 @@ class ViewController: UIViewController {
 
 
     @IBAction func increment() {
-        let num = Int(countLabel.text ?? "") ?? 0
-        countLabel.text = String(num + 1)
+//        let num = Int(countLabel.text ?? "") ?? 0
+//        countLabel.text = String(num + 1)
+        store.dispatch(incrementAction())
     }
     
     @IBAction func decrement() {
         let num = Int(countLabel.text ?? "") ?? 0
         countLabel.text = String(num - 1)
+        store.dispatch(decrementAction())
     }
 
 }
 
+extension ViewController: ReSwift.StoreSubscriber {
+    
+    typealias StoreSubscriberStateType = AppState
+    
+    func newState(state: AppState) {
+        countLabel.text = String(state.counter)
+    }
+    
+}
